@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@layer utilities {
-  .text-primary {
-    color: #801111;
-  }
+@theme {
+  --color-primary: #ec5353;
 }
