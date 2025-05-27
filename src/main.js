@@ -25,6 +25,7 @@ const fetchArticles = async () => {
     console.error('Fetch error:', error);
   }
 };
+fetchArticles()
 
 
 document.querySelector('#app').innerHTML = `
