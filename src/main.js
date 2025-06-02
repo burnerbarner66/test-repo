@@ -18,8 +18,28 @@ const fetchArticles = async () => {
     console.error('Fetch error:', error);
   }
 };
+
 const data = await fetchArticles();
 console.log(data);
+
+const createNewArticle = async (title, subtitle, author, content, created_at) => {
+ try {
+ const response = await fetch('https://cfqeeruznpbdxzapmcgv.supabase.co/rest/v1/article', {
+ method: 'POST',
+ headers: {
+ apiKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmcWVlcnV6bnBiZHh6YXBtY2d2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTQ3NzcsImV4cCI6MjA2MzIzMDc3N30.CQK7IP2HkEqEy2rsC7EC6LMOraH3o_hmXm1mzMqvfzg',
+ 'Content-Type' : 'application/json' ,
+ },
+ body: JSON.stringify({ title, subtitle, author, content, created_at }),
+ });
+
+ if (response.status !== 201) {
+ throw new Error(`Status: ${response.status}`);
+ }
+ } catch (error) {
+ console.error('Fetch error:' , error);
+ }
+};
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -39,12 +59,28 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 function test(){
+  document.querySelector('#article').innerHTML = "";
 for (let article of data){
   console.log(article);
-document.querySelector('#article').innerHTML += `tytuł: ${article.title} podtytuł: ${article.subtitle} nazwa autora: ${article.author} data: ${article.created_at} treść: ${article.content}
+document.querySelector('#article').innerHTML += `<div> tytuł: ${article.title} podtytuł: ${article.subtitle} nazwa autora: ${article.author} data: ${article.created_at} treść: ${article.content} </div> <hr>
 `
 }
 }
 
 test();
+
+document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const subtitle = document.getElementById('subtitle').value;
+    const author = document.querySelector('#author').value;
+    const content = document.getElementById('content').value;
+    const created_at = document.getElementById('data').value;
+  
+  console.log(title, subtitle, author, content, created_at);
+  createNewArticle(title, subtitle, author, content, created_at);
+  test();
+})
+
 setupCounter(document.querySelector('#counter'))

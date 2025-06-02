@@ -13,6 +13,20 @@
   <div id="app"></div>
   <div id="article"></div>
   <script type="module" src="/src/main.js"></script>
+  <h1>Formularz</h1>
+    <form action="/" method="post" id="form">
+        <label for="title">title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="subtitle">subtitle:</label>
+        <input type="text" id="subtitle" name="subtitle" required>
+        <label for="author">author:</label>
+        <input type="text" id="author" name="author" required>
+        <label for="content">content:</label>
+        <input type="text" id="content" name="content" required>
+        <label for="data">created_at:</label>
+        <input type="date" id="data" name="data" required>
+        <button type="submit">Wyślij</button>
+    </form>
 </body>
 
 </html>
