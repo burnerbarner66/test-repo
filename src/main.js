@@ -3,13 +3,6 @@ import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.js'
 
-const response = fetch('https://cfqeeruznpbdxzapmcgv.supabase.co/rest/v1/article', {
- headers: {
- apiKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmcWVlcnV6bnBiZHh6YXBtY2d2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTQ3NzcsImV4cCI6MjA2MzIzMDc3N30.CQK7IP2HkEqEy2rsC7EC6LMOraH3o_hmXm1mzMqvfzg',
- },
-});
-console.log(response);
-
 const fetchArticles = async () => {
   try {
     const response = await fetch(
@@ -25,8 +18,8 @@ const fetchArticles = async () => {
     console.error('Fetch error:', error);
   }
 };
-fetchArticles()
-
+const data = await fetchArticles();
+console.log(data);
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -45,5 +38,13 @@ document.querySelector('#app').innerHTML = `
     </p>
   </div>
 `
+function test(){
+for (let article of data){
+  console.log(article);
+document.querySelector('#article').innerHTML += `tytuł: ${article.title} podtytuł: ${article.subtitle} nazwa autora: ${article.author} data: ${article.created_at} treść: ${article.content}
+`
+}
+}
 
+test();
 setupCounter(document.querySelector('#counter'))
