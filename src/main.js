@@ -19,7 +19,7 @@ const fetchArticles = async () => {
   }
 };
 
-const data = await fetchArticles();
+let data = await fetchArticles(); 
 console.log(data);
 
 const createNewArticle = async (title, subtitle, author, content, created_at) => {
@@ -69,7 +69,7 @@ document.querySelector('#article').innerHTML += `<div> tytuł: ${article.title} 
 
 test();
 
-document.getElementById('form').addEventListener('submit', function (e) {
+document.getElementById('form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const title = document.getElementById('title').value;
@@ -78,9 +78,11 @@ document.getElementById('form').addEventListener('submit', function (e) {
     const content = document.getElementById('content').value;
     const created_at = document.getElementById('data').value;
   
-  console.log(title, subtitle, author, content, created_at);
-  createNewArticle(title, subtitle, author, content, created_at);
-  test();
+    console.log(title, subtitle, author, content, created_at);
+    await createNewArticle(title, subtitle, author, content, created_at); 
+    data = await fetchArticles(); 
+    test(); 
 })
+
 
 setupCounter(document.querySelector('#counter'))
