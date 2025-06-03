@@ -3,6 +3,11 @@ import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.js'
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('pl-PL'); 
+}
+
 const fetchArticles = async () => {
   try {
     const response = await fetch(
@@ -67,11 +72,16 @@ document.querySelector('#app').innerHTML = `
 `
 function test(){
   document.querySelector('#article').innerHTML = "";
-for (let article of data){
-  console.log(article);
-document.querySelector('#article').innerHTML += `<div> tytuł: ${article.title} podtytuł: ${article.subtitle} nazwa autora: ${article.author} data: ${article.created_at} treść: ${article.content} </div> <hr>
-`
-}
+  for (let article of data){
+    document.querySelector('#article').innerHTML += `<div>
+      tytuł: ${article.title}
+      podtytuł: ${article.subtitle}
+      nazwa autora: ${article.author}
+      data: ${formatDate(article.created_at)}
+      treść: ${article.content}
+    </div>
+    <hr>`;
+  }
 }
 
 test();
