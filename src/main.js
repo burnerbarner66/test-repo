@@ -19,11 +19,14 @@ const fetchArticles = async () => {
   }
 };
 
-let data;
-(async () => {
+let data = [];
+
+const init = async () => {
   data = await fetchArticles();
-  test(); 
-})();
+  test();
+};
+
+init();
 console.log(data);
 
 const createNewArticle = async (title, subtitle, author, content, created_at) => {
